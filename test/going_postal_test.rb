@@ -328,7 +328,6 @@ class GoingPostalTest < MiniTest::Unit::TestCase
     assert_equal("1234", GoingPostal.format_postcode("1 2\t3\r4\n", "DK"))
 
     assert_nil(GoingPostal.format_postcode("123", "DK"))
-    assert_nil(GoingPostal.format_postcode("0123", "DK"))
     assert_nil(GoingPostal.format_postcode("12345", "DK"))
     assert_nil(GoingPostal.format_postcode("abcd", "DK"))
   end
@@ -336,9 +335,9 @@ class GoingPostalTest < MiniTest::Unit::TestCase
   def test_dk_postcode_query
     assert(GoingPostal.postcode?("1234", "DK"))
     assert(GoingPostal.postcode?("1 2\t3\r4\n", "DK"))
+    assert(GoingPostal.postcode?("0900", "DK"))
 
     refute(GoingPostal.postcode?("123", "DK"))
-    refute(GoingPostal.postcode?("0123", "DK"))
     refute(GoingPostal.postcode?("12345", "DK"))
     refute(GoingPostal.postcode?("abcd", "DK"))
   end
@@ -585,7 +584,7 @@ class GoingPostalTest < MiniTest::Unit::TestCase
     refute(GoingPostal.postcode?("abcd", "IT"))
     refute(GoingPostal.postcode?("1", "IT"))
   end
-  
+
   def test_es_format_postcode
     assert_equal("08001", GoingPostal.format_postcode("08001", "ES"))
     assert_equal("08120", GoingPostal.format_postcode("0 8\t1\r2\n 0", "ES"))
@@ -611,7 +610,7 @@ class GoingPostalTest < MiniTest::Unit::TestCase
     refute(GoingPostal.postcode?("1", "ES"))
     refute(GoingPostal.postcode?("123456", "ES"))
   end
-  
+
   def test_pt_format_postcode
     assert_equal("3750-000", GoingPostal.format_postcode("3750-000", "PT"))
     assert_equal("3750-000", GoingPostal.format_postcode("3750\t-\t000\n", "PT"))
@@ -635,7 +634,7 @@ class GoingPostalTest < MiniTest::Unit::TestCase
     refute(GoingPostal.postcode?("12345", "PT"))
     refute(GoingPostal.postcode?("123456", "PT"))
   end
-  
+
   def test_pl_format_postcode
     assert_equal("00-001", GoingPostal.format_postcode("00-001", "PL"))
     assert_equal("00-001", GoingPostal.format_postcode("00\t-\t001\n", "PL"))
@@ -659,7 +658,7 @@ class GoingPostalTest < MiniTest::Unit::TestCase
     refute(GoingPostal.postcode?("12345", "PL"))
     refute(GoingPostal.postcode?("123456", "PL"))
   end
-  
+
   def test_fi_format_postcode
     assert_equal("00161", GoingPostal.format_postcode("00161", "FI"))
     assert_equal("00161", GoingPostal.format_postcode("00\t\t161\n", "FI"))
