@@ -498,6 +498,10 @@ class GoingPostalTest < MiniTest::Unit::TestCase
   def test_fr_format_postcode
     assert_equal("12345", GoingPostal.format_postcode("12345", "FR"))
     assert_equal("12345", GoingPostal.format_postcode("1 2\t3\r4\n 5", "FR"))
+    assert_equal("12345", GoingPostal.format_postcode("12345 CEDEX", "FR"))
+    assert_equal("12345", GoingPostal.format_postcode("12345 CEDEX 1", "FR"))
+    assert_equal("12345", GoingPostal.format_postcode("12345 CEDEX ", "FR"))
+    assert_equal("12345", GoingPostal.format_postcode("12345\tCEDEX\t1", "FR"))
 
     assert_nil(GoingPostal.format_postcode("123", "FR"))
     assert_nil(GoingPostal.format_postcode("0123", "FR"))
